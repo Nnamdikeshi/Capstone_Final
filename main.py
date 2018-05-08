@@ -127,6 +127,10 @@ class main:
     def nfl(self):
         webbrowser.open('http://www.nflshop.com/Minnesota_Vikings_', new=0)
         
+        # 
+    def stats(self):
+        os.system('python stats_Api.py')
+        
         # Exit
     def exit(self):
         self.master.destroy()
@@ -196,7 +200,7 @@ class main:
         
         # View Stats API label/button
         Label(self.prf,text = ' View Vikings Stats ',fg = 'purple4',pady=5,padx=5).grid(sticky = W)
-        Button(self.prf,text = ' Stats ',fg = 'gold', bg = 'purple4',bd = 3 ,font = ('',15),padx=5,pady=5,command=self.cr).grid(row=4,column=1)
+        Button(self.prf,text = ' Stats ',fg = 'gold', bg = 'purple4',bd = 3 ,font = ('',15),padx=5,pady=5,command=self.stats).grid(row=4,column=1)
         self.prf.pack()
         
         # Exit Button 
