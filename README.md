@@ -42,4 +42,4 @@ Read these API Code Docs From MySportsFeeds:  [Get Yours!](https://www.mysportsf
 * [MySportsFeeds](https://www.mysportsfeeds.com/data-feeds/api-docs/#) - MySportsFeeds is an unofficial and independent source of information not affiliated with the National Hockey League (NHL), National Football League (NFL), Major League Baseball (MLB), National Basketball Association (NBA), or any of their sub-affiliates.
 
 ## Example
-![Example1](https://octodex.github.com/Nnamdikeshi/Capstone_Final/blob/master/examples/example1.jpg)
+![Example](https://github.com/Nnamdikeshi/Capstone_Final/blob/master/examples/example1.JPG)
