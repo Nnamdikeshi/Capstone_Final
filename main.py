@@ -181,7 +181,7 @@ class main:
         self.prf = Frame(self.master,padx =10,pady = 10)
         # Change our icon and title
         self.master.title("Menu")
-        self.master.iconbitmap(r'C:\Users\Nnamdi\Python_programs\Project 3\icons\helm.ico')
+        self.master.iconbitmap(r'C:\Users\Nnamdi\Python_programs\Final Project\icons\helm.ico')
         # Profile label/button
         Label(self.prf,text = ' Profile --> ',fg = 'Purple4',pady=5,padx=5).grid(row = 1, column = 0)
         Button(self.prf,text = ' Profile ',bg = 'aqua',bd = 3 ,font = ('',15),padx=5,pady=5,command=self.profile_view(profile_name)).grid(row=1,column=1)
@@ -214,7 +214,7 @@ if __name__ == '__main__':
     label = tk.Label(image=image)
     label.pack()
     # Login page icon
-    root.iconbitmap(r'C:\Users\Nnamdi\Python_programs\Project 3\icons\if_Login_73221.ico')
+    root.iconbitmap(r'C:\Users\Nnamdi\Python_programs\Final Project\icons\if_Login_73221.ico')
     root.title('Login Form')
     main(root)
     root.mainloop()

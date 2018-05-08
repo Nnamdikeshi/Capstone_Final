@@ -1,6 +1,7 @@
 from tkinter import *
 from tkinter import ttk
-from tkinter import messageboximport sqlite3import timeimport datetime
+from tkinter import messagebox
+import tkinter as tkimport sqlite3import timeimport datetime
 
 # Establish connection to our dbconn = sqlite3.connect('vikingsdatabase.db', isolation_level=None)c = conn.cursor()class Welcome():#This is the class defining the first welcoming window.    def __init__(self,master):        #This is the GUI for the starting Menu area. Features five buttons for navigating towards the Buying Merch for week 1, and displaying the item list for each week (Updates) EXIT#          self.master=master          self.master.geometry('350x300+250+170')          self.master.title('VMA.1.2')          # self.bar = Scrollbar(self.master)          self.label1=Label(self.master,text='Welcome to the Vikings Merch Store!',fg='purple', font = ('',15)).grid(row=0,column=1)          self.button1=Button(self.master,text="Buy Week 1 SuperBowl VII",fg='green',bg='purple',bd = 3 ,font = ('',15),padx=5,pady=5,command=self.gotomerchandisebuyer).grid(row=1,column=1)          self.button2=Button(self.master,text="Week One Merch List",fg='yellow',bg='purple',bd = 3 ,font = ('',15),padx=5,pady=5,command=self.gotoweekOneMerch).grid(row=2,column=1)
           self.button3=Button(self.master,text="Week Two Merch List",fg='yellow',bg='purple',bd = 3 ,font = ('',15),padx=5,pady=5,command=self.gotoweekThreeMerch).grid(row=3,column=1)
@@ -270,4 +271,4 @@ class weekThreeMerch():
              Label(self.master, text=dat[4]).grid(row=index+1, column=4)             def main():
     #Create Object
 	#and setup window     root=Tk()
-     root.iconbitmap(r'C:\Users\Nnamdi\Python_programs\Project 3\icons\vik_merch.ico')     myGUIWelcome=Welcome(root)     root.mainloop()if __name__ == '__main__':     main()
+     root.iconbitmap(r'C:\Users\Nnamdi\Python_programs\Final project\icons\vik_merch.ico')     myGUIWelcome=Welcome(root)     root.mainloop()if __name__ == '__main__':     main()
