@@ -16,10 +16,10 @@ class TestMain(TestCase):
     # The name of this method is important - the test runner will look for it
     def setUp(self):
         # Overwrite the mileage
-        quit.db_url = self.test_db_url
+        quit.db_url = self.test_quit_db_url
         # drop everything from the DB to always start with an empty database
-        conn = sqlite3.connect(self.test_db_url)
-        conn.execute('DELETE FROM quit')
+        conn = sqlite3.connect(self.test_quit_db_url)
+        conn.execute('DELETE FROM test_quit')
         conn.commit()
         conn.close()
 
