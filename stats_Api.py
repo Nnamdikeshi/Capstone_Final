@@ -46,7 +46,7 @@ class Api():
 
     def find(self):
         username = 'Nnamdikeshi'
-        password = '*****'
+        password = ''
         team = 'minnesota-vikings'
         sp = self.seasonGet.get()
         pos = self.positionGet.get()
