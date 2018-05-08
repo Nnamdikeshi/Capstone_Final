@@ -1,6 +1,7 @@
 from tkinter import *
 from tkinter import ttk
 from tkinter import messagebox
+import os
 import base64
 import requests
 
@@ -16,7 +17,7 @@ class Api():
         self.name=StringVar()
         # Build our window
         self.master=master
-        self.master.geometry('400x450+250+170')
+        self.master.geometry('450x450+250+170')
         self.master.title('STAT.1.1')
         
         # Welcome label
@@ -46,7 +47,7 @@ class Api():
 
     def find(self):
         username = 'Nnamdikeshi'
-        password = ''
+        password = '*****'
         team = 'minnesota-vikings'
         sp = self.seasonGet.get()
         pos = self.positionGet.get()
@@ -54,80 +55,82 @@ class Api():
         positionPick = self.positionGet.get()
         playername = self.name.get()
    
-        
-        if sp == "2017":
-            response = requests.get(
-                url = 'https://api.mysportsfeeds.com/v1.2/pull/nfl/2017-regular/cumulative_player_stats.json',
-                params = {
-                    'team' : team, 'player' : playername, 'position' : pos,'sort' : 'stats.TD'
-                }, 
-                headers = {"Authorization": "Basic " + base64.b64encode('{}:{}'.format(username,password).encode('utf-8')).decode('ascii')
-                }
-            )#.json()
-            f = open('stats.txt', 'w' )
-            f.write(response.text)
-            f.close()
-            
-            #open('stats.txt').readline().split(':')[1].strip()
-            
-            print('Response HTTP Status Code: {status_code}'.format(
-                status_code=response.status_code))
-            #print('Response HTTP Response Body: {content}'.format(
-             #   content=response.content))
+        try:
+            if sp == "2017":
+                response = requests.get(
+                    url = 'https://api.mysportsfeeds.com/v1.2/pull/nfl/2017-regular/cumulative_player_stats.json',
+                    params = {
+                        'team' : team, 'player' : playername, 'position' : pos,'sort' : 'stats.TD'
+                    }, 
+                    headers = {"Authorization": "Basic " + base64.b64encode('{}:{}'.format(username,password).encode('utf-8')).decode('ascii')
+                    }
+                )#.json()
+                f = open('stats.txt', 'w' )
+                f.write(response.text)
+                f.close()
+                osCommandString = "notepad.exe stats.txt"
+                os.system(osCommandString)
+                #open('stats.txt').readline().split(':')[1].strip()
                 
-        elif sp == "2016":
-            response = requests.get(
-                url = 'https://api.mysportsfeeds.com/v1.2/pull/nfl/2016-regular/cumulative_player_stats.json',
-                params = {
-                    'team' : team, 'player' : playername, 'position' : pos,'playerstats' : 'Comp,Yds,TD'
-                }, 
-                headers = {"Authorization": "Basic " + base64.b64encode('{}:{}'.format(username,password).encode('utf-8')).decode('ascii')
-                }
-            )#.json()
-            
-            # response.content.split("@abbreviation")[1]
-            # print(response.content)
-            
-            print('Response HTTP Status Code: {status_code}'.format(
-                status_code=response.status_code))
-            print('Response HTTP Response Body: {content}'.format(
-                content=response.content))
+                print('Response HTTP Status Code: {status_code}'.format(
+                    status_code=response.status_code))
+                #print('Response HTTP Response Body: {content}'.format(
+                 #   content=response.content))
+                    
+            elif sp == "2016":
+                response = requests.get(
+                    url = 'https://api.mysportsfeeds.com/v1.2/pull/nfl/2016-regular/cumulative_player_stats.json',
+                    params = {
+                        'team' : team, 'player' : playername, 'position' : pos,'playerstats' : 'Comp,Yds,TD'
+                    }, 
+                    headers = {"Authorization": "Basic " + base64.b64encode('{}:{}'.format(username,password).encode('utf-8')).decode('ascii')
+                    }
+                )#.json()
                 
-        elif sp == "2015":
-            response = requests.get(
-                url = 'https://api.mysportsfeeds.com/v1.2/pull/nfl/2017-regular/cumulative_player_stats.json',
-                params = {
-                    'team' : team, 'player' : playername, 'position' : pos,'playerstats' : 'Comp,Yds,TD'
-                }, 
-                headers = {"Authorization": "Basic " + base64.b64encode('{}:{}'.format(username,password).encode('utf-8')).decode('ascii')
-                }
-            )#.json()
-            
-            print('Response HTTP Status Code: {status_code}'.format(
-                status_code=response.status_code))
-            print('Response HTTP Response Body: {content}'.format(
-                content=response.content))
+                # response.content.split("@abbreviation")[1]
+                # print(response.content)
                 
-        elif pos == "All":
-            response = requests.get(
-                url = 'https://api.mysportsfeeds.com/v1.2/pull/nfl/2017-regular/cumulative_player_stats.json',
-                params = {
-                    'team' : team, 'player' : playername,'playerstats' : 'Comp,Yds,TD'
-                }, 
-                headers = {"Authorization": "Basic " + base64.b64encode('{}:{}'.format(username,password).encode('utf-8')).decode('ascii')
-                }
-            )#.json()
+                print('Response HTTP Status Code: {status_code}'.format(
+                    status_code=response.status_code))
+                print('Response HTTP Response Body: {content}'.format(
+                    content=response.content))
+                    
+            elif sp == "2015":
+                response = requests.get(
+                    url = 'https://api.mysportsfeeds.com/v1.2/pull/nfl/2017-regular/cumulative_player_stats.json',
+                    params = {
+                        'team' : team, 'player' : playername, 'position' : pos,'playerstats' : 'Comp,Yds,TD'
+                    }, 
+                    headers = {"Authorization": "Basic " + base64.b64encode('{}:{}'.format(username,password).encode('utf-8')).decode('ascii')
+                    }
+                )#.json()
+                
+                print('Response HTTP Status Code: {status_code}'.format(
+                    status_code=response.status_code))
+                print('Response HTTP Response Body: {content}'.format(
+                    content=response.content))
+                    
+            elif pos == "All":
+                response = requests.get(
+                    url = 'https://api.mysportsfeeds.com/v1.2/pull/nfl/2017-regular/cumulative_player_stats.json',
+                    params = {
+                        'team' : team, 'player' : playername,'playerstats' : 'Comp,Yds,TD'
+                    }, 
+                    headers = {"Authorization": "Basic " + base64.b64encode('{}:{}'.format(username,password).encode('utf-8')).decode('ascii')
+                    }
+                )#.json()
+                
+                print('Response HTTP Status Code: {status_code}'.format(
+                    status_code=response.status_code))
+                print('Response HTTP Response Body: {content}'.format(
+                    content=response.content))
             
-            print('Response HTTP Status Code: {status_code}'.format(
-                status_code=response.status_code))
-            print('Response HTTP Response Body: {content}'.format(
-                content=response.content))
-        
-        
-        
-        else:
-            ms.showerror('Error!','Season not available')
-    
+            
+            
+            else:
+                ms.showerror('Error!','Season not available')
+        except: 
+            print("Unexpected error:", sys.exc_info()[0])
     def exit(self):
         self.master.destroy()
 def main():

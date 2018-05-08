@@ -34,40 +34,42 @@ class main():
         '''This Logs Users in with correct credentials'''
         
     	#Establish Connection
-        with sqlite3.connect('quit.db') as db:
-            c = db.cursor()
+        try:
+            with sqlite3.connect('quit.db') as db:
+                c = db.cursor()
 
-        #Find user If there is any take proper action
-        find_user = ('SELECT * FROM user WHERE username = ? and password = ?')
-        c.execute(find_user,[(self.username.get()),(self.password.get())])
-        result = c.fetchall()
-        if result:
-            
-            # Clears GUI
-            global profile_name
-            self.logf.pack_forget()
-            profile_name = self.username.get()
-            self.head['text'] = profile_name + '\n Logged In'
-            self.account_widgets(profile_name)
-            
-            # Who is logged in?
-            
+            #Find user If there is any take proper action
+            find_user = ('SELECT * FROM user WHERE username = ? and password = ?')
+            c.execute(find_user,[(self.username.get()),(self.password.get())])
+            result = c.fetchall()
+            if result:
+                
+                # Clears GUI
+                global profile_name
+                self.logf.pack_forget()
+                profile_name = self.username.get()
+                self.head['text'] = profile_name + '\n Logged In'
+                self.account_widgets(profile_name)
+                
+                # Who is logged in?
+                
 
-            # Photo testing
-            # img1 = PhotoImage(file="test.png")
-            # lab1 = Label(root, image=img1, text = "test")
-            # lab1.image = img1
-            # lab1.pack()
-            
-            # image = ImageTk.PhotoImage(PilImage.open('test.png'))
-            # lbl = tk.Label(window, image = img).pack()
+                # Photo testing
+                # img1 = PhotoImage(file="test.png")
+                # lab1 = Label(root, image=img1, text = "test")
+                # lab1.image = img1
+                # lab1.pack()
+                
+                # image = ImageTk.PhotoImage(PilImage.open('test.png'))
+                # lbl = tk.Label(window, image = img).pack()
 
-            #self.account_widgets()
-            #open_merch()
-            
-        else:
-            ms.showerror('Oops!','Username or Password Incorrect')
-            
+                #self.account_widgets()
+                #open_merch()
+                
+            else:
+                ms.showerror('Oops!','Username or Password Incorrect')
+        except:
+            print ("Unexpected error:", sys.exc_info()[0])
     def open_merch(self):
         ''' This opens up the mock merchandise buyer app '''
      
