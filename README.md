@@ -4,8 +4,8 @@ Python program which will allow the user to create their own account, edit their
 * Edit personal profile details.
 * Buy mock merchandise with the vikings_Merch_app (VM1.2)
 * Buy NFL shop merchandise through link in webbrowser
-* Access Minnesota Vikings
-* Notes: pixabay api code is need. Custom api code is not needed and free to use!
+* Access Minnesota Vikings Stats through MySportsFeeds API
+* Notes: MySportsFeeds API account is needed but it is free!
 
 ## Getting Started
 
