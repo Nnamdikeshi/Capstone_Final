@@ -11,12 +11,12 @@ import webbrowser
 with sqlite3.connect('quit.db') as db:
     c = db.cursor()
 # Creat our users table if it doesnt already exist
-c.execute('CREATE TABLE IF NOT EXISTS user (username TEXT NOT NULL ,password TEX NOT NULL);')
+c.execute('CREATE TABLE IF NOT EXISTS user (username TEXT NOT NULL ,password TEXT NOT NULL);')
 db.commit()
 db.close()
 
 #main Class
-class main:
+class main():
     def __init__(self,master):
     	# Window 
         self.master = master
@@ -62,6 +62,7 @@ class main:
 
             #self.account_widgets()
             #open_merch()
+            
         else:
             ms.showerror('Oops!','Username or Password Incorrect')
             
@@ -101,11 +102,12 @@ class main:
             self.log()
         # Clears our screen for profile view
     def profile_view(self, profile_name):
-        name = profile_name
+    
+        name = profile_name        
         self.prf.pack_forget()
         #label.pack_forget()
         self.head ['text'] = name + "'s Profile "
-        
+        #return name
         # Frame Packing Methods
     def log(self):
         self.username.set('')

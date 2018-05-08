@@ -17,7 +17,7 @@ class Api():
         # Build our window
         self.master=master
         self.master.geometry('400x450+250+170')
-        self.master.title('STAT.1.2')
+        self.master.title('STAT.1.1')
         
         # Welcome label
         self.welcomeLabel=Label(self.master,text='Welcome to the Vikings Stat Finder',fg='purple').grid(row=0,column=0)
