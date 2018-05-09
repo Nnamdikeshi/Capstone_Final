@@ -20,8 +20,6 @@ Install: [Python 3.6 + pip](https://www.python.org/downloads/)
 
 Install: [Git](https://git-scm.com/downloads)
 
-Run: `pip install -r /path/to/requirements.txt`
-
 Read these API Code Docs From MySportsFeeds:  [Get Yours!](https://www.mysportsfeeds.com/)
 
 
