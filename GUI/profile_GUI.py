@@ -1,6 +1,7 @@
 import os
 import sqlite3
 import tkinter as tk
+from datastorage.create_Profile_DB import CreateDB
 from tkinter import *
 from tkinter import messagebox as ms
 
@@ -10,15 +11,11 @@ class Profile():
     def __init__(self,master):
     
         from __main__ import profile_name
-        global pn
+        global pn 
         pn = profile_name
+        global name
+        name = pn
         
-        # Create our users table in profiles.db
-        with sqlite3.connect('databases/profiles.db') as db:
-            c = db.cursor()
-        c.execute('CREATE TABLE IF NOT EXISTS users (username TEXT NOT NULL ,name TEXT NOT NULL,age INT NOT NULL, email TEXT NOT NULL, favplayer TEXT NOT NULL);')
-        db.commit()
-        db.close()
         
         # Build our GUI
         self.master=master
@@ -44,10 +41,8 @@ class Profile():
         # Edit profile button
         self.editButton=Button(self.master,text=" EDIT ",fg='gold', bg='purple4',command=self.editprofilewidgets).grid(row=3,column=3)
         
-        # Connect to db and show what is stored for this user
-        self.connection = sqlite3.connect('databases/profiles.db')
-        self.cur = self.connection.cursor()
-        self.showallprofile()
+        
+        self.showallprofile(name)
         
         
     def editprofilewidgets(self):
@@ -69,23 +64,15 @@ class Profile():
         # Get our info from our entries
         age = int(self.ageGet.get())
         email = self.emailGet.get()
-        player = self.favGet.get()
+        favplayer = self.favGet.get()
+        #name = pn
         
-        with sqlite3.connect('databases/profiles.db') as db:
-            c = db.cursor()
-       
-            # SQL query INSERT our details
-            c.execute("UPDATE users SET name = ?, age = ?, email = ?, favplayer = ? WHERE username = ?",(pn, age, email, player, profile_name,))
-            db.commit()
-            self.showallprofile()
+        CreateDB.update(name, age, email, favplayer)
+        self.showallprofile(name)
             
-    def readfromdatabase(self):
-        # Read our users table where username = username
-        self.cur.execute('SELECT * FROM users WHERE username =?', (pn,))
-        return self.cur.fetchall()   
-         
-    def showallprofile(self):
-        data = self.readfromdatabase()
+    def showallprofile(self, name):
+        pname = name
+        data = CreateDB.showAll(pname)
         # Itterates through database and appends what we want
         for index, dat in enumerate(data):
             Label(self.master, text=dat[2],fg='purple').grid(row=2, column=1)

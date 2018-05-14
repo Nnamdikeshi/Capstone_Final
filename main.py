@@ -1,4 +1,5 @@
 import os
+import hashlib
 import sqlite3
 import tkinter as tk
 import webbrowser
