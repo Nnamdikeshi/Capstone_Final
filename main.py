@@ -1,14 +1,18 @@
-from tkinter import *
-from tkinter import messagebox as ms
 import os
 import sqlite3
 import tkinter as tk
 import webbrowser
+from tkinter import *
+from tkinter import messagebox as ms
+from GUI.profile_GUI import Profile
+from GUI.stats_Api_GUI import ApiGUI
+from GUI.vikings_Merch_GUI import MerchGUI
+
 #from PIL import ImageTk
 #from PIL import Image as PilImage
 
 # make database and users (if not exists already) table at programme start up
-with sqlite3.connect('quit.db') as db:
+with sqlite3.connect('databases/quit.db') as db:
     c = db.cursor()
 # Creat our users table if it doesnt already exist
 c.execute('CREATE TABLE IF NOT EXISTS user (username TEXT NOT NULL ,password TEXT NOT NULL);')
@@ -35,7 +39,7 @@ class main():
         
     	#Establish Connection
         try:
-            with sqlite3.connect('quit.db') as db:
+            with sqlite3.connect('databases/quit.db') as db:
                 c = db.cursor()
 
             #Find user If there is any take proper action
@@ -51,32 +55,18 @@ class main():
                 self.head['text'] = profile_name + '\n Logged In'
                 self.account_widgets(profile_name)
                 
-                # Who is logged in?
-                
-
-                # Photo testing
-                # img1 = PhotoImage(file="test.png")
-                # lab1 = Label(root, image=img1, text = "test")
-                # lab1.image = img1
-                # lab1.pack()
-                
-                # image = ImageTk.PhotoImage(PilImage.open('test.png'))
-                # lbl = tk.Label(window, image = img).pack()
-
-                #self.account_widgets()
-                #open_merch()
-                
             else:
                 ms.showerror('Oops!','Username or Password Incorrect')
         except:
             print ("Unexpected error:", sys.exc_info()[0])
     def open_merch(self):
         ''' This opens up the mock merchandise buyer app '''
-     
-        os.system('python vikings_Merch_app.py')
+        root2=Toplevel(self.master)
+        vikingsgui=MerchGUI(root2) 
+        #os.system('python vikings_Merch_app.py')
         
     def profile_view(self):
-        #This is where the weekOneMerch is kept
+          # New window fix
           root2=Toplevel(self.master)
           mygui=Profile(root2)    
           
@@ -85,7 +75,7 @@ class main():
         
     	# Establish Connection
         passw1 = ''
-        with sqlite3.connect('quit.db') as db:
+        with sqlite3.connect('databases/quit.db') as db:
             c = db.cursor()
         # Find Existing username if any take proper action
         find_user = ('SELECT * FROM user WHERE username = ?')
@@ -109,15 +99,7 @@ class main():
             c.execute(insert,[(self.n_username.get()),(self.n_password.get())])
             db.commit()
             self.log()
-        # Clears our screen for profile view
-    # def profile_view(self, profile_name):
-    
-        # name = profile_name        
-        # self.prf.pack_forget()
-        # #label.pack_forget()
-        # self.head ['text'] = name + "'s Profile "
-        #return name
-        # Frame Packing Methods
+        
     def log(self):
         self.username.set('')
         self.password.set('')
@@ -140,7 +122,9 @@ class main():
         
         # Stats app
     def stats(self):
-        os.system('python stats_Api.py')
+        #This opens the users profile
+          root2=Toplevel(self.master)
+          statsGui=ApiGUI(root2)
         
         # Exit
     def exit(self):
@@ -196,10 +180,13 @@ class main():
         self.prf = Frame(self.master,padx =10,pady = 10)
         # Change our icon and title
         self.master.title("Menu")
-        self.master.iconbitmap(r'C:\Users\Nnamdi\Python_programs\Final Project\icons\helm.ico')
+        
+        '''To-Do: Fix icon'''
+        # image = tk.PhotoImage(file= os.path.join("icons", "glitter.gif"))
+        # self.master.iconbitmap(image)
         # Profile label/button
         Label(self.prf,text = ' Profile --> ',fg = 'Purple4',pady=5,padx=5).grid(row = 1, column = 0)
-        Button(self.prf,text = ' Profile ',bg = 'aqua',bd = 3 ,font = ('',15),padx=5,pady=5,command=self.profile_view).grid(row=1,column=1)
+        Button(self.prf,text = ' Profile ',bg = 'aqua',bd = 3 ,font = ('',15),padx=5,pady=5,command=self.open_profile).grid(row=1,column=1)
         
         # Mock Merch label/button
         Label(self.prf,text = ' Buy Merchandise\n (Creators Shop) ',fg = 'purple4',pady=5,padx=5).grid(sticky = W)
@@ -218,90 +205,12 @@ class main():
         Button(self.prf,text = ' Exit ',fg = 'red2', bg = 'black',bd = 3 ,font = ('',15),padx=5,pady=5,command=self.exit).grid(row=4,column=2)
         self.prf.pack()
         
-    # profile GUI class    
-class Profile():
-    def __init__(self,master):
         
-        # Create our users table in profiles.db
-        with sqlite3.connect('profiles.db') as db:
-            c = db.cursor()
-        c.execute('CREATE TABLE IF NOT EXISTS users (username TEXT NOT NULL ,name TEXT NOT NULL,age INT NOT NULL, email TEXT NOT NULL, favplayer TEXT NOT NULL);')
-        db.commit()
-        db.close()
-        
-        # Build our GUI
-        self.master=master
-        self.master.geometry('600x400+250+170')
-        self.master.title('PV.1.1')
-        # root.iconbitmap(r'C:\Users\Nnamdi\Python_programs\Final Project\icons\profile.ico')
-        
-        # Welcome label
-        self.welcomeLabel=Label(self.master,text='Welcome to your profile ' + profile_name ,fg='purple').grid(row=0,column=0)
-        
-        # Name labels
-        self.nameLabel=Label(self.master,text=' Name: ',fg='purple').grid(row=1,column=0)
-        self.userLabel=Label(self.master,text=profile_name,fg='purple').grid(row=1,column=1)
-        
-        # Age label
-        self.aqeLabel=Label(self.master,text=' Age: ' ,fg='purple').grid(row=2,column=0)
-        
-        # Email label
-        self.emailLabel=Label(self.master,text=' Email: ',fg='purple').grid(row=3,column=0)
-        
-        # Favorite player label
-        self.favplayerLabel=Label(self.master,text=' Favorite Player: ', fg='purple').grid(row=4, column=0)
-        
-        # Edit profile button
-        self.editButton=Button(self.master,text=" EDIT ",fg='gold', bg='purple4',command=self.editprofilewidgets).grid(row=3,column=3)
-        
-        # Connect to db and show what is stored for this user
-        self.connection = sqlite3.connect('profiles.db')
-        self.cur = self.connection.cursor()
-        self.showallprofile()
-        
-        
-    def editprofilewidgets(self):
-        # profile Variables
-        self.ageGet = IntVar()
-        self.emailGet = StringVar()
-        self.favGet = StringVar()
-        
-        # Entry widgets
-        self.ageEntry=Entry(self.master,textvariable=self.ageGet).grid(row=2, column=2)
-        self.emailEntry=Entry(self.master,textvariable=self.emailGet).grid(row=3, column=2)
-        self.favplayerEntry=Entry(self.master,textvariable=self.favGet).grid(row=4, column=2)
-        
-        # Add button
-        self.editButton=Button(self.master,text=" ADD ",fg='gold', bg='purple4',command=self.changeprofile).grid(row=4,column=3)
-        
-    def changeprofile(self):
-    
-        # Get our info from our entries
-        age = int(self.ageGet.get())
-        email = self.emailGet.get()
-        player = self.favGet.get()
-        
-        with sqlite3.connect('profiles.db') as db:
-            c = db.cursor()
-       
-            # SQL query INSERT our details
-            c.execute("UPDATE users SET name = ?, age = ?, email = ?, favplayer = ? WHERE username = ?",(profile_name, age, email, player, profile_name,))
-            db.commit()
-            self.showallprofile()
-            
-    def readfromdatabase(self):
-        # Read our users table where username = username
-        self.cur.execute('SELECT * FROM users WHERE username =?', (profile_name,))
-        return self.cur.fetchall()   
-         
-    def showallprofile(self):
-        data = self.readfromdatabase()
-        # Itterates through database and appends what we want
-        for index, dat in enumerate(data):
-            Label(self.master, text=dat[2],fg='purple').grid(row=2, column=1)
-            Label(self.master, text=dat[3],fg='purple').grid(row=3, column=1)
-            Label(self.master, text=dat[4],fg='purple').grid(row=4, column=1)
-            
+    def open_profile(self):
+        #This opens the users profile
+          root2=Toplevel(self.master)
+          profileGui=Profile(root2)
+          
 if __name__ == '__main__':
     #Create Object
     #and setup window
@@ -311,7 +220,8 @@ if __name__ == '__main__':
     label = tk.Label(image=image)
     label.pack()
     # Login page icon
-    root.iconbitmap(r'C:\Users\Nnamdi\Python_programs\Final Project\icons\if_Login_73221.ico')
+    icon = PhotoImage(file= os.path.join("icons", "if_Login_73221.gif"))
+    root.tk.call('wm', 'iconphoto', root._w, icon) 
     root.title('Login Form')
     main(root)
     root.mainloop()

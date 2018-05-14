@@ -1,12 +1,13 @@
-from tkinter import *
-from tkinter import ttk
-from tkinter import messagebox
 import os
 import base64
 import requests
+from tkinter import *
+from tkinter import ttk
+from tkinter import messagebox
 
 
-class Api():
+
+class ApiGUI():
 
     def __init__(self,master):
         # Some useful variables
@@ -54,7 +55,7 @@ class Api():
     def find(self):
         # Here we need our MySportsFeed User/Pass
         username = 'Nnamdikeshi'
-        password = '*****'
+        password = 'Kiidfrost23!'
         team = 'minnesota-vikings'
         sp = self.seasonGet.get()
         pos = self.positionGet.get()
@@ -179,13 +180,3 @@ class Api():
     def exit(self):
         self.master.destroy()
         
-def main():
-    #Create Object
-	#and setup window
-     root=Tk()
-     root.iconbitmap(r'C:\Users\Nnamdi\Python_programs\Final Project\icons\stats.ico')
-     myGUIWelcome=Api(root)
-     root.mainloop()
-
-if __name__ == '__main__':
-     main()

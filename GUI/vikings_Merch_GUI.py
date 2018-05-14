@@ -1,9 +1,11 @@
-from tkinter import *
+import os
+import time
+import sqlite3import datetime
+import tkinter as tkfrom tkinter import *
 from tkinter import ttk
 from tkinter import messagebox
-import tkinter as tkimport sqlite3import timeimport datetime
-
-# Establish connection to our dbconn = sqlite3.connect('vikingsdatabase.db', isolation_level=None)c = conn.cursor()class Welcome():#This is the class defining the first welcoming window.    def __init__(self,master):        #This is the GUI for the starting Menu area. Features five buttons for navigating towards the Buying Merch for week 1, and displaying the item list for each week (Updates) EXIT#          self.master=master          self.master.geometry('350x300+250+170')          self.master.title('VMA.1.2')          # self.bar = Scrollbar(self.master)          self.label1=Label(self.master,text='Welcome to the Vikings Merch Store!',fg='purple', font = ('',15)).grid(row=0,column=1)          self.button1=Button(self.master,text="Buy Week 1 SuperBowl VII",fg='green',bg='purple',bd = 3 ,font = ('',15),padx=5,pady=5,command=self.gotomerchandisebuyer).grid(row=1,column=1)          self.button2=Button(self.master,text="Week One Merch List",fg='yellow',bg='purple',bd = 3 ,font = ('',15),padx=5,pady=5,command=self.gotoweekOneMerch).grid(row=2,column=1)
+
+# Establish connection to our dbconn = sqlite3.connect('databases/vikingsdatabase.db', isolation_level=None)c = conn.cursor()class MerchGUI():#This is the class defining the first welcoming window.    def __init__(self,master):        #This is the GUI for the starting Menu area. Features five buttons for navigating towards the Buying Merch for week 1, and displaying the item list for each week (Updates) EXIT#          self.master=master          self.master.geometry('350x300+250+170')          self.master.title('VMA.2.0')          # self.bar = Scrollbar(self.master)          self.label1=Label(self.master,text='Welcome to the Vikings Merch Store!',fg='purple', font = ('',15)).grid(row=0,column=1)          self.button1=Button(self.master,text="Buy Week 1 SuperBowl VII",fg='green',bg='purple',bd = 3 ,font = ('',15),padx=5,pady=5,command=self.gotomerchandisebuyer).grid(row=1,column=1)          self.button2=Button(self.master,text="Week One Merch List",fg='yellow',bg='purple',bd = 3 ,font = ('',15),padx=5,pady=5,command=self.gotoweekOneMerch).grid(row=2,column=1)
           self.button3=Button(self.master,text="Week Two Merch List",fg='yellow',bg='purple',bd = 3 ,font = ('',15),padx=5,pady=5,command=self.gotoweekThreeMerch).grid(row=3,column=1)
           self.button4=Button(self.master,text="Week Three Merch List",fg='yellow',bg='purple',bd = 3 ,font = ('',15),padx=5,pady=5,command=self.gotoweekThreeMerch).grid(row=4,column=1)          self.button5=Button(self.master,text="Exit",fg='red',bg='black',bd = 3 ,font = ('',15),padx=5,pady=5,command=self.exit).grid(row=5,column=1)    def exit(self):        #Exit protocol for the exit button. This part is completely done.#          self.master.destroy()    def gotomerchandisebuyer(self):        #This is the Merchandise Buyer GUI#              root2=Toplevel(self.master)          myGUI=merchandisebuyer(root2)
               def gotoweekOneMerch(self):        #This is where the weekOneMerch is kept          root2=Toplevel(self.master)          mygui=weekOneMerch(root2)
@@ -66,9 +68,10 @@ import tkinter as tkimport sqlite3import timeimport datetime
           self.button8=Button(self.master,text="DELETE",fg='red',command=self.deleteRecords).grid(row=4,column=3)
           self.button9=Button(self.master,text="*Prices*",fg='purple',command=self.getPrices).grid(row=4,column=4)
           
-          self.connection = sqlite3.connect('vikingsdatabase.db')
+          self.connection = sqlite3.connect('databases/vikingsdatabase.db')
           self.cur = self.connection.cursor()
           self.showallweekOneMerch()
+          
     # Show our table from vikingsdatabase
     def getTotal(self):
          self.cur.execute("SELECT SUM(Sold) WHERE Name = 'Hat w/Logo' FROM sold")
@@ -186,6 +189,7 @@ import tkinter as tkimport sqlite3import timeimport datetime
              self.label1=Label(self.master,text='Your Purchase was unsuccessfull. Sorry ' + custname,fg='red').grid(row=8,column=0)
              return      # Delete function with sql DELETE statement and UPDATE merch stock
     def deleteRecords(self):
+    
           id = self.deletename.get()
           c.execute("DELETE FROM sold WHERE ID=?", (id,))
           conn.commit()
@@ -195,7 +199,7 @@ import tkinter as tkimport sqlite3import timeimport datetime
           self.showallweekOneMerch()
           return
               def exit(self):          #Exit protocol for the exit button. This part is completely done.#          self.master.destroy()
-     class weekOneMerch():     #class created to see weekOneMerch that have been previously logged#    def __init__(self,master):         self.master=master         self.master.geometry('600x210+100+200')         self.master.title('weekOneMerch')         self.connection = sqlite3.connect('vikingsdatabase.db')         self.cur = self.connection.cursor()         self.idLabel = Label(self.master, text="ID", width=10)         self.idLabel.grid(row=0, column=0)         self.nameLabel = Label(self.master, text="Name", width=10)         self.nameLabel.grid(row=0, column=1)         self.colorLabel = Label(self.master, text="Color", width=10)         self.colorLabel.grid(row=0, column=2)         self.soldLabel = Label(self.master, text="Sold", width=10)         self.soldLabel.grid(row=0, column=3)         self.availableLabel = Label(self.master, text="Available", width=10)         self.availableLabel.grid(row=0, column=4)         self.showallweekOneMerch()
+     class weekOneMerch():     #class created to see weekOneMerch that have been previously logged#    def __init__(self,master):         self.master=master         self.master.geometry('600x210+100+200')         self.master.title('weekOneMerch')         self.connection = sqlite3.connect('databases/vikingsdatabase.db')         self.cur = self.connection.cursor()         self.idLabel = Label(self.master, text="ID", width=10)         self.idLabel.grid(row=0, column=0)         self.nameLabel = Label(self.master, text="Name", width=10)         self.nameLabel.grid(row=0, column=1)         self.colorLabel = Label(self.master, text="Color", width=10)         self.colorLabel.grid(row=0, column=2)         self.soldLabel = Label(self.master, text="Sold", width=10)         self.soldLabel.grid(row=0, column=3)         self.availableLabel = Label(self.master, text="Available", width=10)         self.availableLabel.grid(row=0, column=4)         self.showallweekOneMerch()
              # Show our stock with SELECT    def readfromdatabase1(self):         self.cur.execute("SELECT * FROM for_sale_week1")         return self.cur.fetchall()         def showallweekOneMerch(self):                   data = self.readfromdatabase1()                   for index, dat in enumerate(data):             Label(self.master, text=dat[0]).grid(row=index+1, column=0)             Label(self.master, text=dat[1]).grid(row=index+1, column=1)             Label(self.master, text=dat[2]).grid(row=index+1, column=2)             Label(self.master, text=dat[3]).grid(row=index+1, column=3)             Label(self.master, text=dat[4]).grid(row=index+1, column=4)
              class weekTwoMerch():
      #class created to see weekTwoMerch that have been previously logged#
@@ -203,7 +207,7 @@ import tkinter as tkimport sqlite3import timeimport datetime
          self.master=master
          self.master.geometry('600x210+100+200')
          self.master.title('weekTwoMerch')
-         self.connection = sqlite3.connect('vikingsdatabase.db')
+         self.connection = sqlite3.connect('databases/vikingsdatabase.db')
          self.cur = self.connection.cursor()
          self.idLabel = Label(self.master, text="ID", width=10)
          self.idLabel.grid(row=0, column=0)
@@ -241,7 +245,7 @@ class weekThreeMerch():
          self.master.geometry('600x210+100+200')
          # Title Name goes here
          self.master.title('weekThreeMerch')
-         self.connection = sqlite3.connect('vikingsdatabase.db')
+         self.connection = sqlite3.connect('databases/vikingsdatabase.db')
          self.cur = self.connection.cursor()
          self.idLabel = Label(self.master, text="ID", width=10)
          self.idLabel.grid(row=0, column=0)
@@ -268,7 +272,8 @@ class weekThreeMerch():
              Label(self.master, text=dat[1]).grid(row=index+1, column=1)
              Label(self.master, text=dat[2]).grid(row=index+1, column=2)
              Label(self.master, text=dat[3]).grid(row=index+1, column=3)
-             Label(self.master, text=dat[4]).grid(row=index+1, column=4)             def main():
-    #Create Object
-	#and setup window     root=Tk()
-     root.iconbitmap(r'C:\Users\Nnamdi\Python_programs\Final project\icons\vik_merch.ico')     myGUIWelcome=Welcome(root)     root.mainloop()if __name__ == '__main__':     main()
+             Label(self.master, text=dat[4]).grid(row=index+1, column=4)             # def main():
+    # #Create Object
+	# #and setup window     # root=Tk()
+     # icon = PhotoImage(file= os.path.join("icons", "vik_merch.gif"))
+     # root.tk.call('wm', 'iconphoto', root._w, icon)       # myGUIWelcome=Welcome(root)     # root.mainloop()# if __name__ == '__main__':     # main()

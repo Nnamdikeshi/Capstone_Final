@@ -1,3 +1,4 @@
 *.pyc
 __pycache__
 foo.sqlite
+directions_for_clara.txt

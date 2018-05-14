@@ -1,0 +1,10 @@
+
+
+When you refer to file in other directories, use os.path.join instead of system-specific \ or / to join path components, e.g.
+
+image = tk.PhotoImage(file= os.path.join("icons", "glitter.gif"))
+
+Your app is quite modular, but you do have a lot going on in some modules e.g. main.py could be split up. Typically in a GUI, you have modules which deal with creating the GUI components, displaying information, and responding to events; but these classes delegate the actual app logic to other classes. You should also separate database code. If you have GUI and DB code in the same class, that's not modular.
+
+I already made this comment on Project 3, but your code not flexible. It can only deal with hats that cost $15 and shirts that costs $20 and shorts that cost $25. How could you make this more flexible? You have a big block of if statements for each item. What would you do if you sold 100 items? One approach would be to have a table with all of your inventory item names in it, and prices, and then you can query that to get a list of items to be sold. Your user could then select their item from a dropdown menu instead of needing to type in a number. The methods showallweekonemerch, showallweektwo merch... are part of the same problem. What do you do when there's a year or 10 year's worth of sales to manage?
+
