@@ -272,8 +272,4 @@ class weekThreeMerch():
              Label(self.master, text=dat[1]).grid(row=index+1, column=1)
              Label(self.master, text=dat[2]).grid(row=index+1, column=2)
              Label(self.master, text=dat[3]).grid(row=index+1, column=3)
-             Label(self.master, text=dat[4]).grid(row=index+1, column=4)             # def main():
-    # #Create Object
-	# #and setup window     # root=Tk()
-     # icon = PhotoImage(file= os.path.join("icons", "vik_merch.gif"))
-     # root.tk.call('wm', 'iconphoto', root._w, icon)       # myGUIWelcome=Welcome(root)     # root.mainloop()# if __name__ == '__main__':     # main()
+             Label(self.master, text=dat[4]).grid(row=index+1, column=4)
