@@ -1,5 +1,4 @@
 import os
-import sqlite3
 import tkinter as tk
 from datastorage.create_Profile_DB import CreateDB
 from tkinter import *

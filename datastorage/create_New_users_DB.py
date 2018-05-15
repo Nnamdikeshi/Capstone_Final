@@ -6,6 +6,9 @@ class CreateDB(object):
     
     def setup(name):
         
-    def something():
+    def something(week_number):
     
-    def something():
+    def updatemerch(amount):
+        c.execute("UPDATE for_sale_week1 SET Sold = +? , Available = Available - ? WHERE ID = 1",(amount,amount))
+        conn.commit()
+        
