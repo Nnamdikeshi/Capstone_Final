@@ -1,4 +1,5 @@
 import os
+import uuid
 import hashlib
 import sqlite3
 import tkinter as tk
@@ -44,6 +45,7 @@ class main():
                 c = db.cursor()
 
             #Find user If there is any take proper action
+            
             find_user = ('SELECT * FROM user WHERE username = ? and password = ?')
             c.execute(find_user,[(self.username.get()),(self.password.get())])
             result = c.fetchall()
@@ -60,6 +62,7 @@ class main():
                 ms.showerror('Oops!','Username or Password Incorrect')
         except:
             print ("Unexpected error:", sys.exc_info()[0])
+
     def open_merch(self):
         ''' This opens up the mock merchandise buyer app '''
         root2=Toplevel(self.master)
@@ -75,14 +78,13 @@ class main():
         ''' This creates our new user if everything checks out'''
         
     	# Establish Connection
-        passw1 = ''
         with sqlite3.connect('databases/quit.db') as db:
             c = db.cursor()
         # Find Existing username if any take proper action
         find_user = ('SELECT * FROM user WHERE username = ?')
         c.execute(find_user,[(self.username.get())])        
         if c.fetchall():
-            ms.showerror('Error!','Username Taken Try a Diffrent One.')
+            ms.showerror('Error!','Username Taken Try a Different One.')
         elif not self.n_username.get():
             ms.showerror('Error!', 'Username cannot be blank.')
             self.cr()
@@ -95,11 +97,14 @@ class main():
         else:
             ms.showinfo('Success!','Account Created!')
             
+            password = self.n_password.get()
+            hashed = self.hash_password(password)
+            
             #Create New Account 
             insert = 'INSERT INTO user(username,password) VALUES(?,?)'
-            c.execute(insert,[(self.n_username.get()),(self.n_password.get())])
+            c.execute(insert,[(self.n_username.get()),hashed])
             db.commit()
-            self.log()
+            self.log()   
         
     def log(self):
         self.username.set('')

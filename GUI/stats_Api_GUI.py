@@ -26,7 +26,9 @@ class ApiGUI():
         
         self.seasonLabel=Label(self.master,text='Season -->',fg='purple').grid(row=1,column=0)
         self.seasonGet = ttk.Combobox(self.master, textvariable=self.season)
-        self.seasonGet['values'] = ("2017", "2016", "2015")
+        
+        # The earliest year accesible is 2014
+        self.seasonGet['values'] = ("2017", "2016", "2015", "2014")
         self.seasonGet.current(0)
         self.seasonGet.grid(row=1, column=1)
         
@@ -34,7 +36,7 @@ class ApiGUI():
         self.positionLabel=Label(self.master,text='Positon -->',fg='purple').grid(row=2,column=0)
         # Combo box for positon
         self.positionGet = ttk.Combobox(self.master, textvariable=self.position)
-        self.positionGet['values'] = ("All", "QB", "HB", "FB", "WR", "TE", "C", "OG", "OT", "DT", "DE", "MLB", "LB", "CB", "S", "K", "H", "P")
+        self.positionGet['values'] = ("QB", "HB", "FB", "WR", "TE", "C", "OG", "OT", "DT", "DE", "MLB", "LB", "CB", "S", "K", "H", "P")
         self.positionGet.current(0)
         self.positionGet.grid(row = 2, column = 1)
         
@@ -55,126 +57,42 @@ class ApiGUI():
     def find(self):
         # Here we need our MySportsFeed User/Pass
         username = 'Nnamdikeshi'
-        password = 'Kiidfrost23!'
+        password = '******'
         team = 'minnesota-vikings'
         sp = self.seasonGet.get()
         pos = self.positionGet.get()
         seasonPick = self.seasonGet.get() + '-regular'
         positionPick = self.positionGet.get()
         playername = self.name.get()
-   
+        
         try:
-            # If season chosen is 2017 make request
-            if sp == "2017":
-                response = requests.get(
-                    url = 'https://api.mysportsfeeds.com/v1.2/pull/nfl/2017-regular/cumulative_player_stats.json',
-                    params = {
-                        'team' : team, 'player' : playername, 'position' : pos,'sort' : 'stats.TD'
-                    }, 
-                    headers = {"Authorization": "Basic " + base64.b64encode('{}:{}'.format(username,password).encode('utf-8')).decode('ascii')
-                    }
-                )#.json()
-                
-                ''' Here lies the last Issue to fix. 
-                Users will see raw code with hard to read stats. 
-                A fix is set for the near future. '''
-                # Issue start
-                f = open('stats.txt', 'w' )
-                f.write(response.text)
-                f.close()
-                osCommandString = "notepad.exe stats.txt"
-                os.system(osCommandString)
-                #open('stats.txt').readline().split(':')[1].strip()
-                
-                print('Response HTTP Status Code: {status_code}'.format(
-                    status_code=response.status_code))
-                #print('Response HTTP Response Body: {content}'.format(
-                 #   content=response.content))
-                #Issue End
-                
-            # If season chosen is 2016 make request
-            elif sp == "2016":
-                response = requests.get(
-                    url = 'https://api.mysportsfeeds.com/v1.2/pull/nfl/2016-regular/cumulative_player_stats.json',
-                    params = {
-                        'team' : team, 'player' : playername, 'position' : pos,'playerstats' : 'Comp,Yds,TD'
-                    }, 
-                    headers = {"Authorization": "Basic " + base64.b64encode('{}:{}'.format(username,password).encode('utf-8')).decode('ascii')
-                    }
-                )#.json()
-                
-                # Issue start
-                f = open('stats.txt', 'w' )
-                f.write(response.text)
-                f.close()
-                osCommandString = "notepad.exe stats.txt"
-                os.system(osCommandString)
-                #open('stats.txt').readline().split(':')[1].strip()
-                
-                # response.content.split("@abbreviation")[1]
-                # print(response.content)
-                
-                print('Response HTTP Status Code: {status_code}'.format(
-                    status_code=response.status_code))
-                print('Response HTTP Response Body: {content}'.format(
-                    content=response.content))
-                # Issue End
-            # If season chosen is 2015 make request
-            elif sp == "2015":
-                response = requests.get(
-                    url = 'https://api.mysportsfeeds.com/v1.2/pull/nfl/2017-regular/cumulative_player_stats.json',
-                    params = {
-                        'team' : team, 'player' : playername, 'position' : pos,'playerstats' : 'Comp,Yds,TD'
-                    }, 
-                    headers = {"Authorization": "Basic " + base64.b64encode('{}:{}'.format(username,password).encode('utf-8')).decode('ascii')
-                    }
-                )#.json()
-                
-                # Issue start
-                f = open('stats.txt', 'w' )
-                f.write(response.text)
-                f.close()
-                osCommandString = "notepad.exe stats.txt"
-                os.system(osCommandString)
-                #open('stats.txt').readline().split(':')[1].strip()
-                
-                # response.content.split("@abbreviation")[1]
-                # print(response.content)
-                
-                print('Response HTTP Status Code: {status_code}'.format(
-                    status_code=response.status_code))
-                print('Response HTTP Response Body: {content}'.format(
-                    content=response.content))
-                # Issue End
-                    
-            elif pos == "All":
-                response = requests.get(
-                    url = 'https://api.mysportsfeeds.com/v1.2/pull/nfl/2017-regular/cumulative_player_stats.json',
-                    params = {
-                        'team' : team, 'player' : playername,'playerstats' : 'Comp,Yds,TD'
-                    }, 
-                    headers = {"Authorization": "Basic " + base64.b64encode('{}:{}'.format(username,password).encode('utf-8')).decode('ascii')
-                    }
-                )#.json()
-                
-                # Issue start
-                f = open('stats.txt', 'w' )
-                f.write(response.text)
-                f.close()
-                osCommandString = "notepad.exe stats.txt"
-                os.system(osCommandString)
-                #open('stats.txt').readline().split(':')[1].strip()
-                
-                # response.content.split("@abbreviation")[1]
-                # print(response.content)
-                
-                print('Response HTTP Status Code: {status_code}'.format(
-                    status_code=response.status_code))
-                print('Response HTTP Response Body: {content}'.format(
-                    content=response.content))
-                # Issue End
-            else:
-                ms.showerror('Error!','Season not available')
+            # After user chooses a season 
+            
+            response = requests.get(
+                url = 'https://api.mysportsfeeds.com/v1.2/pull/nfl/%s-regular/cumulative_player_stats.json' % sp,
+                params = {
+                    'team' : team, 'player' : playername, 'position' : pos,'sort' : 'stats.TD'
+                }, 
+                headers = {"Authorization": "Basic " + base64.b64encode('{}:{}'.format(username,password).encode('utf-8')).decode('ascii')
+                }
+            )
+            
+            ''' Here lies the last Issue to fix. 
+            Users will see raw code with hard to read stats. 
+            A fix is set for the near future. '''
+            
+            f = open('stats.txt', 'w' )
+            f.write(response.text)
+            f.close()
+            osCommandString = "notepad.exe stats.txt"
+            os.system(osCommandString)
+            #open('stats.txt').readline().split(':')[1].strip()
+            
+            print('Response HTTP Status Code: {status_code}'.format(
+                status_code=response.status_code))
+            #print('Response HTTP Response Body: {content}'.format(
+             #   content=response.content))
+            
         except: 
             print("Unexpected error:", sys.exc_info()[0])
     def exit(self):

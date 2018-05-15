@@ -5,7 +5,6 @@ import tkinter as tkfrom tkinter import *
 from tkinter import ttk
 from tkinter import messagebox
 from datastorage.create_Merch_DB import CreateDB
-from GUI.weeks_GUI import WeekOneMerch
 class MerchGUI():#This is the class defining the first welcoming window.    def __init__(self,master):        #This is the GUI for the starting Menu area. Features five buttons for navigating towards the Buying Merch for week 1, and displaying the item list for each week (Updates) EXIT#
                   CreateDB.setupDB()
           CreateDB.setupWeeks()
@@ -112,7 +111,11 @@ from GUI.weeks_GUI import WeekOneMerch
           # If it got this far... Success!
           self.label1=Label(self.master,text='Your Purchase was successfull ' + custname,fg='green').grid(row=8,column=0)
           
-                 # Delete function with sql DELETE statement and UPDATE merch stock
+    # To calculate how much was sold this week      
+    def howMuchSold(self):
+        return
+        
+            # Delete function with sql DELETE statement and UPDATE merch stock
     def deleteRecords(self):
           id = int(self.deletename.get())
           print(id)

@@ -3,4 +3,4 @@ from unittest.mock import patch, Mock
 import vikings_Merch_app
 from vikings_Merch_app import 
 
-class Test_
+class Test

@@ -87,6 +87,8 @@ class CreateDB(object):
         with sqlite3.connect('databases/vikingsdatabase.db') as conn:
             conn = conn.cursor()
             conn.execute(dataEnter, (merchandise, colorname, custname, locationname, amount, timestamp))
+            conn.execute("UPDATE for_sale_week1 SET Sold = Sold + ? WHERE Name = ?", (amount, merchandise,))
+            conn.execute("UPDATE for_sale_week1 SET Available - ? Where Name = ?", ( amount, merchandise,))
             
     def deleteOrder(id):
         with sqlite3.connect('databases/vikingsdatabase.db') as conn:
