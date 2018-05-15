@@ -1,7 +1,6 @@
 import uuid
 import hashlib
  
- 
  """ Draft: Will implement something like this to my user login/creation"""
  
 def hash_password(password):
