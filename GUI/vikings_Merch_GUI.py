@@ -9,14 +9,14 @@ from datastorage.create_Merch_DB import CreateDB
                   CreateDB.setupDB()
           CreateDB.setupWeeks()
                     self.master=master          self.master.geometry('350x300+250+170')          self.master.title('VMA.2.0')          # self.bar = Scrollbar(self.master)          self.label1=Label(self.master,text='Welcome to the Vikings Merch Store!',fg='purple', font = ('',15)).grid(row=0,column=1)          self.button1=Button(self.master,text="Buy Week 1 SuperBowl VII",fg='green',bg='purple',bd = 3 ,font = ('',15),padx=5,pady=5,command=self.gotomerchandisebuyer).grid(row=1,column=1)          self.button2=Button(self.master,text="Week One Merch List",fg='yellow',bg='purple',bd = 3 ,font = ('',15),padx=5,pady=5,command=self.gotoweekOneMerch).grid(row=2,column=1)
-          self.button3=Button(self.master,text="Week Two Merch List",fg='yellow',bg='purple',bd = 3 ,font = ('',15),padx=5,pady=5,command=self.gotoweekThreeMerch).grid(row=3,column=1)
+          self.button3=Button(self.master,text="Week Two Merch List",fg='yellow',bg='purple',bd = 3 ,font = ('',15),padx=5,pady=5,command=self.gotoweekTwoMerch).grid(row=3,column=1)
           self.button4=Button(self.master,text="Week Three Merch List",fg='yellow',bg='purple',bd = 3 ,font = ('',15),padx=5,pady=5,command=self.gotoweekThreeMerch).grid(row=4,column=1)          self.button5=Button(self.master,text="Exit",fg='red',bg='black',bd = 3 ,font = ('',15),padx=5,pady=5,command=self.exit).grid(row=5,column=1)    def exit(self):        #Exit protocol for the exit button. This part is completely done.#          self.master.destroy()    def gotomerchandisebuyer(self):        #This is the Merchandise Buyer GUI#              root2=Toplevel(self.master)          myGUI=merchandisebuyer(root2)
               def gotoweekOneMerch(self):        #This is where the weekOneMerch is kept          root2=Toplevel(self.master)          mygui=weekOneMerch(root2)
           
-    def gotoweekThreeMerch(self):
+    def gotoweekTwoMerch(self):
         #This is where the weekTwoMerch is kept
           root2=Toplevel(self.master)
-          mygui=weekThreeMerch(root2)
+          mygui=weekTwoMerch(root2)
               def gotoweekThreeMerch(self):
         #This is where weekThreeMerch is kept
           root2=Toplevel(self.master)
@@ -129,6 +129,7 @@ from datastorage.create_Merch_DB import CreateDB
              def showallweekMerch(self):         week_number = 1         data = self.CreateDB.readfromdatabase(week_number)                   for index, dat in enumerate(data):             Label(self.master, text=dat[0]).grid(row=index+1, column=0)             Label(self.master, text=dat[1]).grid(row=index+1, column=1)             Label(self.master, text=dat[2]).grid(row=index+1, column=2)             Label(self.master, text=dat[3]).grid(row=index+1, column=3)           
              class weekTwoMerch():
      #class created to see weekTwoMerch that have been previously logged#
+    from datastorage.create_Merch_DB import CreateDB
     def __init__(self,master):
          self.master=master
          self.master.geometry('600x210+100+200')
@@ -143,7 +144,7 @@ from datastorage.create_Merch_DB import CreateDB
          self.soldLabel.grid(row=0, column=2)
          self.availableLabel = Label(self.master, text="Available", width=10)
          self.availableLabel.grid(row=0, column=3)
-         self.showallweekThreeMerch()
+         self.showallweekMerch()
          
     def showallweekMerch(self):
          week_number = 2
@@ -157,6 +158,7 @@ from datastorage.create_Merch_DB import CreateDB
 
 class weekThreeMerch():
      #class created to see weekOneMerch that have been previously logged#
+    from datastorage.create_Merch_DB import CreateDB
     def __init__(self,master):
         #
          self.master=master
@@ -173,7 +175,7 @@ class weekThreeMerch():
          self.soldLabel.grid(row=0, column=2)
          self.availableLabel = Label(self.master, text="Available", width=10)
          self.availableLabel.grid(row=0, column=3)
-         self.showallweekThreeMerch()
+         self.showallweekMerch()
          
     def showallweekMerch(self):
          week_number = 3

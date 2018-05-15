@@ -5,8 +5,6 @@ from tkinter import *
 from tkinter import ttk
 from tkinter import messagebox
 
-
-
 class ApiGUI():
 
     def __init__(self,master):
